@@ -1,10 +1,18 @@
 with (import <nixpkgs> {});
 
 mkShell rec {
-  buildInputs = [ gcc
-                  gdb
-                  valgrind
-                  clang
+  buildInputs = [
+    # compilers
+    gcc
+    clang
+
+    # debugging tools
+    gdb
+    valgrind
+
+    # libraries
+    SDL2
+    libglvnd
                 ];
 
   # environment for CLANGD
@@ -20,6 +28,12 @@ mkShell rec {
 
   # compiler specific headers
   "${clang}/resource-root/include"
+
+  # SDL headers
+  "${SDL2.dev}/include"
+
+  # opengl headers
+  "${libglvnd.dev}/include"
 
   ];
 }
