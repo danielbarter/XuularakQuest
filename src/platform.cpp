@@ -1,6 +1,4 @@
 #include "platform.h"
-#include "SDL2/SDL_events.h"
-#include "SDL2/SDL_keycode.h"
 
 Platform::Platform()  {
     SDL_Init(SDL_INIT_VIDEO);
