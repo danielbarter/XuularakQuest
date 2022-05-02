@@ -2,6 +2,7 @@
 // Using SDL2 to create an application window
 
 
+#include "SDL2/SDL_events.h"
 #include <csignal>
 #include <sstream>
 #include <stdexcept>
@@ -16,9 +17,20 @@ struct Color {
     float green;
     float blue;
     float alpha;
+
 };
 
+struct Game {
+
+    bool running;
+    Game();
+
+};
+
+Game::Game() : running(true) {};
+
 struct Platform {
+
     SDL_Window *window;
     SDL_GLContext glcontext;
 
@@ -27,9 +39,12 @@ struct Platform {
 
     void clear_buffer(Color color);
     void show_buffer();
+    void process_event_queue(Game &game);
+
 };
 
-Platform::Platform() {
+
+Platform::Platform()  {
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow(
         "XuularakQuest",
@@ -67,20 +82,36 @@ void Platform::clear_buffer(Color color) {
 
 void Platform::show_buffer() {
     SDL_GL_SwapWindow(window);
-
 }
+
+void Platform::process_event_queue(Game &game) {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+	if ( event.type == SDL_KEYDOWN )
+	    game.running = false;
+    }
+}
+
 
 int main(int, char**) {
 
 
     Platform platform;
+    Game game;
 
-    Color red = { .red = 1.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
+    Color red = {
+	.red = 1.0,
+	.green = 0.0,
+	.blue = 0.0,
+	.alpha = 1.0 };
 
-    platform.clear_buffer(red);
-    platform.show_buffer();
 
-    SDL_Delay(3000);
+    while ( game.running ) {
+	platform.process_event_queue(game);
+	platform.clear_buffer(red);
+	platform.show_buffer();
+    };
+
 
     return 0;
 }
