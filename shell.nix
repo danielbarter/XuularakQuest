@@ -20,8 +20,8 @@ mkShell rec {
   CLANGD_PATH = builtins.concatStringsSep ":" [
 
     # C++ stdlib headers
-    "${gcc-unwrapped}/include/c++/11.2.0"
-    "${gcc-unwrapped}/include/c++/11.2.0/x86_64-unknown-linux-gnu"
+    "${gcc-unwrapped}/include/c++/${gcc.version}"
+    "${gcc-unwrapped}/include/c++/${gcc.version}/x86_64-unknown-linux-gnu"
 
     # libc headers
     "${glibc.dev}/include"

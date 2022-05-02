@@ -1,33 +1,12 @@
-// Example program:
-// Using SDL2 to create an application window
+#pragma once
 
-
-#include "SDL2/SDL_events.h"
-#include <csignal>
 #include <sstream>
 #include <stdexcept>
 #include <string>
 #include <SDL2/SDL.h>
 #include <GLES2/gl2.h>
 
-
-struct Color {
-
-    float red;
-    float green;
-    float blue;
-    float alpha;
-
-};
-
-struct Game {
-
-    bool running;
-    Game();
-
-};
-
-Game::Game() : running(true) {};
+#include "game.h"
 
 struct Platform {
 
@@ -40,6 +19,7 @@ struct Platform {
     void clear_buffer(Color color);
     void show_buffer();
     void process_event_queue(Game &game);
+    void render(Game &game);
 
 };
 
@@ -92,26 +72,8 @@ void Platform::process_event_queue(Game &game) {
     }
 }
 
+void Platform::render(Game &game) {
+    clear_buffer(game.background_color);
+    show_buffer();
 
-int main(int, char**) {
-
-
-    Platform platform;
-    Game game;
-
-    Color red = {
-	.red = 1.0,
-	.green = 0.0,
-	.blue = 0.0,
-	.alpha = 1.0 };
-
-
-    while ( game.running ) {
-	platform.process_event_queue(game);
-	platform.clear_buffer(red);
-	platform.show_buffer();
-    };
-
-
-    return 0;
 }
