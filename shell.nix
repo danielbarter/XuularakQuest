@@ -19,21 +19,21 @@ mkShell rec {
   # CPATH=$CLANGD_PATH emacs
   CLANGD_PATH = builtins.concatStringsSep ":" [
 
-  # C++ stdlib headers
-  "${gcc-unwrapped}/include/c++/10.3.0"
-  "${gcc-unwrapped}/include/c++/10.3.0/x86_64-unknown-linux-gnu"
+    # C++ stdlib headers
+    "${gcc-unwrapped}/include/c++/11.2.0"
+    "${gcc-unwrapped}/include/c++/11.2.0/x86_64-unknown-linux-gnu"
 
-  # libc headers
-  "${glibc.dev}/include"
+    # libc headers
+    "${glibc.dev}/include"
 
-  # compiler specific headers
-  "${clang}/resource-root/include"
+    # compiler specific headers
+    "${clang}/resource-root/include"
 
-  # SDL headers
-  "${SDL2.dev}/include"
+    # SDL headers
+    "${SDL2.dev}/include"
 
-  # opengl headers
-  "${libglvnd.dev}/include"
+    # opengl headers
+    "${libglvnd.dev}/include"
 
   ];
 }
