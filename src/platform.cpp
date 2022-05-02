@@ -1,4 +1,6 @@
 #include "platform.h"
+#include "GLES2/gl2.h"
+#include "game.h"
 
 Platform::Platform()  {
     SDL_Init(SDL_INIT_VIDEO);
@@ -70,6 +72,18 @@ void Platform::process_keydown(SDL_Keycode sym, Game &game) {
     }
 
 }
+
+void Platform::marshal_vertex_data(Game &game) {
+    glGenBuffers(1, &vertex_buffer_object_id);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_object_id);
+    glBufferData(
+	GL_ARRAY_BUFFER,
+	game.vertex_buffer.size() * sizeof(Vertex),
+	game.vertex_buffer.data(),
+	GL_STATIC_DRAW);
+
+}
+
 
 void Platform::render(Game &game) {
     clear_buffer(game.background_color);

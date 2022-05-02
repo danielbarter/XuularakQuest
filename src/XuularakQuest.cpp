@@ -7,6 +7,8 @@ int main(int, char**) {
     Game game;
 
 
+    raise(SIGINT);
+
     while ( game.running ) {
 	platform.process_event_queue(game);
 	platform.render(game);

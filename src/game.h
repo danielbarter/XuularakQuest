@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 struct Color {
 
     float red;
@@ -9,10 +11,25 @@ struct Color {
 
 };
 
+struct Point {
+
+    float x;
+    float y;
+};
+
+
+struct Vertex {
+    Point point;
+    Color color;
+};
+
 struct Game {
 
     bool running;
     Color background_color;
+    std::vector<Vertex> vertex_buffer;
+
+
     Game();
 
 };
