@@ -9,6 +9,7 @@ mkShell rec {
     # debugging tools
     gdb
     valgrind
+    renderdoc
 
     # libraries
     SDL2

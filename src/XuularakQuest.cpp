@@ -7,7 +7,7 @@ int main(int, char**) {
     Game game;
 
 
-    raise(SIGINT);
+    platform.marshal_vertex_data(game);
 
     while ( game.running ) {
 	platform.process_event_queue(game);
