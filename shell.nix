@@ -9,12 +9,13 @@ mkShell rec {
     # debugging tools
     gdb
     valgrind
-    renderdoc
 
     # libraries
     SDL2
-    libglvnd
-                ];
+
+    vulkan-loader
+    vulkan-headers
+  ];
 
   # environment for CLANGD
   # CPATH=$CLANGD_PATH emacs
@@ -33,8 +34,13 @@ mkShell rec {
     # SDL headers
     "${SDL2.dev}/include"
 
-    # opengl headers
-    "${libglvnd.dev}/include"
+    # vulkan headers
+    "${vulkan-headers}/include"
+  ];
+
+  LD_LIBRARY_PATH = builtins.concatStringsSep ":" [
+
+    "${vulkan-loader}/lib"
 
   ];
 }
